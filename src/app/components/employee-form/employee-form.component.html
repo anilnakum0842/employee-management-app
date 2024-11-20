@@ -1,0 +1,79 @@
+<div class="employee-form">
+  <form (ngSubmit)="employeeForm.form.valid && saveEmployee()" #employeeForm="ngForm">
+    <input type="hidden" name="id" id="id" #id="ngModel" [(ngModel)]="employee.id" />
+    <div class="row">
+      <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+          <label for="name"><b>Employee Name</b> &nbsp;<small class="required">*</small></label>
+          <div class="input-group input-lg">
+            <input type="text" id="name" [(ngModel)]="employee.name" name="name" #name="ngModel" required
+              class="form-control" />
+            <span *ngIf="(employeeForm.submitted && !name.valid) || name.touched " class="validation">
+              <span *ngIf="name.errors">Please enter employee name</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-12">
+        <div class="input-select">
+          <label for="position"><b>Select Role</b> &nbsp;<small class="required">*</small></label>
+          <ng-select name="position" id="position" #position="ngModel" [(ngModel)]="employee.position" placeholder=""
+            [searchable]="false" required>
+            <ng-option *ngFor="let p of positionList" [value]="p.id">{{p.name}}</ng-option>
+          </ng-select>
+          <span *ngIf="employeeForm.submitted || position.touched" class="validation">
+            <span *ngIf="employee.position==null || employee.position== ''">Please select employee role</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="dateOfJoining">Date of Joining &nbsp;<small class="required">*</small></label>
+          <div class="input-group input-lg">
+            <input type="text" class="form-control date-input" bsDatepicker readonly [bsConfig]="{
+          isAnimated: true,
+          dateInputFormat: 'YYYY-MM-DD',
+          containerClass: 'theme-blue',
+          showWeekNumbers:false
+        }" name="dateOfJoining" id="dateOfJoining" #dateOfJoining="ngModel" [(ngModel)]="employee.dateOfJoining"
+              autocomplete="off" required />
+              <span *ngIf="(employeeForm.submitted && !dateOfJoining.valid) || dateOfJoining.touched " class="validation">
+                <span *ngIf="dateOfJoining.errors">Please enter date of Joining</span>
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="toDate">To Date</label>
+          <div class="input-group input-lg">
+            <input type="text" class="form-control date-input" bsDatepicker readonly [bsConfig]="{
+          isAnimated: true,
+          dateInputFormat: 'YYYY-MM-DD',
+          containerClass: 'theme-blue',
+          minDate: getMinDate(),
+          showWeekNumbers:false
+        }" name="toDate" id="toDate" #toDate="ngModel" [(ngModel)]="employee.toDate" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 form-action">
+        <button type="reset" (click)="this.employeeState.closeForm()" class="btn btn-secondary reset_form">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-info">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

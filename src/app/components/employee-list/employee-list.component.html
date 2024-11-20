@@ -1,0 +1,92 @@
+<div class="employee-list mt-4">
+  <div class="card no-shadow">
+    <div class="header">
+      <h2>
+        <strong>Current</strong>
+        Employees
+      </h2>
+    </div>
+
+    <div class="row clearfix data-list"
+      *ngIf="employeeState.currentEmployees()?.length == null || employeeState.currentEmployees()?.length == 0">
+      <div class="col-md-12">
+        <div class="text-center">
+          <img src="../../../assets/images/no-data.png" alt="No Data" />
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix data-list"
+      *ngIf="employeeState.currentEmployees()?.length != null && employeeState.currentEmployees()?.length != 0">
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12"
+        *ngFor="let employee of employeeState.currentEmployees(); let i = index">
+        <div class="card">
+          <div class="body card-list">
+            <div class="row">
+              <div class="col-12 list-head">
+                <div class="head-title">
+                  <h6><b>{{ employee.name }}</b></h6>
+                </div>
+                <div class="text-right action">
+                  <a href="javascript:;" class="btn btn-sm btn-info" (click)="onEdit(employee)">
+                    Edit
+                  </a>
+                  <a href="javascript:;" class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.id)">
+                    Delete
+                  </a>
+                </div>
+              </div>
+              <hr />
+              <p> <b>{{ employee.position }}</b></p>
+              <p> From {{ employee.dateOfJoining | date: 'dd MMM, yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card no-shadow">
+    <div class="header">
+      <h2>
+        <strong>Previous</strong>
+        Employees
+      </h2>
+    </div>
+
+    <div class="row clearfix data-list"
+      *ngIf="employeeState.previousEmployees()?.length == null || employeeState.previousEmployees()?.length == 0">
+      <div class="col-md-12">
+        <div class="text-center">
+          <img src="../../../assets/images/no-data.png" alt="No Data" />
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix data-list"
+      *ngIf="employeeState.previousEmployees()?.length != null && employeeState.previousEmployees()?.length != 0">
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12"
+        *ngFor="let employee of employeeState.previousEmployees(); let i = index">
+        <div class="card">
+          <div class="body card-list">
+            <div class="row">
+              <div class="col-12 list-head">
+                <div class="head-title">
+                  <h6><b>{{ employee.name }}</b></h6>
+                </div>
+                <div class="text-right action">
+                  <a href="javascript:;" class="btn btn-sm btn-info" (click)="onEdit(employee)">
+                    Edit
+                  </a>
+                  <a href="javascript:;" class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.id)">
+                    Delete
+                  </a>
+                </div>
+              </div>
+              <hr />
+              <p> <b>{{ employee.position }}</b></p>
+              <p> {{ employee.dateOfJoining | date: 'dd MMM, yyyy' }} - {{ employee.toDate | date: 'dd MMM, yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
